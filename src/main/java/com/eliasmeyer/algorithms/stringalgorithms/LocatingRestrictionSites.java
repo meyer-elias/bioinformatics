@@ -2,7 +2,6 @@ package com.eliasmeyer.algorithms.stringalgorithms;
 
 import com.eliasmeyer.algorithms.commons.AbstractStreamingFastaInputProcessor;
 import com.eliasmeyer.bio.molecule.nucleicacid.dna.DNA;
-import com.eliasmeyer.bio.molecule.nucleicacid.dna.DNABase;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,18 +38,6 @@ public class LocatingRestrictionSites extends AbstractStreamingFastaInputProcess
 				}
 			}
 		}
-	}
-
-	private boolean isReversePalindrome(List<DNABase> sequence, int start, int length) {
-		for (int i = 0; i < length; i++) {
-			DNABase forward = sequence.get(start + i);
-			DNABase reverse = sequence.get(start + length - 1 - i).complement();
-
-			if (forward != reverse) {
-				return false;
-			}
-		}
-		return true;
 	}
 
 
