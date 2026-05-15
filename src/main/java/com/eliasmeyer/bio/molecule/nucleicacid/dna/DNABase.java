@@ -35,5 +35,16 @@ public enum DNABase implements Complementary<DNABase> {
 			case G -> RNABase.G;
 		};
 	}
+
+	public static DNABase parseBase(char symbol) {
+		try {
+			return DNABase.valueOf(String.valueOf(symbol));
+		} catch (IllegalArgumentException ex) {
+			throw new IllegalArgumentException(
+				"Invalid DNA base: '" + symbol + "'. Allowed: A, C, G, T", ex
+			);
+		}
+	}
+
 }
 

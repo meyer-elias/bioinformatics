@@ -72,6 +72,23 @@ public class DNA extends NucleicAcid<DNABase> {
 		return sequence.map(DNABase::complement);
 	}
 
+	public boolean isReversePalindrome() {
+		Sequence<DNABase> complementary = complementary();
+		return sequence.equals(complementary);
+	}
+
+	public boolean isReversePalindrome(int start, int length) {
+		for (int i = 0; i < length; i++) {
+			var forward = sequence.get(start + i);
+			var complement = sequence.get(start + length - 1 - i).complement();
+
+			if (forward != complement) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	public RNA transcribe() {
 		return new RNA(sequence.map(DNABase::toRNA));
 	}

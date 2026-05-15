@@ -28,6 +28,14 @@ public class Sequence<T> implements Iterable<T> {
 		this(List.of(elements));
 	}
 
+	public Sequence<T> subSequence(int start) {
+		return new Sequence<>(elements.subList(start, elements.size()));
+	}
+
+	public Sequence<T> subSequence(int start, int end) {
+		return new Sequence<>(elements.subList(start, end));
+	}
+
 	public Sequence(String raw, Function<Character, T> parser) {
 		if (raw == null || raw.isBlank()) {
 			throw new IllegalArgumentException("Sequence must not be null or blank");

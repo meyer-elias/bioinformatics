@@ -21,20 +21,10 @@ public class ConsensusAndProfile extends AbstractStreamingFastaInputProcessor {
 		new ConsensusAndProfile().readAndProcessInput();
 	}
 
-	private static DNABase parseBase(char symbol) {
-		try {
-			return DNABase.valueOf(String.valueOf(symbol));
-		} catch (IllegalArgumentException ex) {
-			throw new IllegalArgumentException(
-				"Invalid DNA base: '" + symbol + "'. Allowed: A, C, G, T", ex
-			);
-		}
-	}
-
 	@Override
 	protected void onRecord(String header, String sequence) {
 		List<DNABase> row = sequence.chars()
-			.mapToObj(c -> parseBase((char) c))
+			.mapToObj(c -> DNABase.parseBase((char) c))
 			.toList();
 
 		profile.compute(row);
