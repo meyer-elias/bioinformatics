@@ -4,10 +4,10 @@ import com.eliasmeyer.algorithms.commons.AbstractStreamingFastaInputProcessor;
 import com.eliasmeyer.bio.molecule.commons.Sequence;
 import com.eliasmeyer.bio.molecule.nucleicacid.dna.DNA;
 import com.eliasmeyer.bio.molecule.nucleicacid.dna.DNABase;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.IntStream;
-import java.util.stream.StreamSupport;
 
 /*
  *	https://rosalind.info/problems/lcsm/
@@ -17,7 +17,12 @@ import java.util.stream.StreamSupport;
  */
 public class FindingASharedMotif extends AbstractStreamingFastaInputProcessor {
 
-	Set<DNA> motifLocations = new HashSet<>();
+	private final Set<DNA> motifLocations = new HashSet<>();
+
+	static void main() throws IOException {
+		FindingASharedMotif processor = new FindingASharedMotif();
+		processor.readAndProcessInput();
+	}
 
 	@Override
 	protected void onRecord(String header, String sequence) {
@@ -62,10 +67,7 @@ public class FindingASharedMotif extends AbstractStreamingFastaInputProcessor {
 	}
 
 	private boolean isShared(Sequence<DNABase> motif) {
-		DNABase[] elements = StreamSupport.stream(motif.spliterator(), false)
-			.toArray(DNABase[]::new);
-
 		return motifLocations.stream()
-			.allMatch(dna -> dna.sequence().hasSubsequence(elements));
+			.allMatch(dna -> dna.sequence().hasSubsequence(motif));
 	}
 }

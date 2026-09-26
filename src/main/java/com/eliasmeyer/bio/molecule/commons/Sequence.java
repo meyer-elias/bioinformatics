@@ -47,13 +47,13 @@ public class Sequence<T> implements Iterable<T> {
 		);
 	}
 
-	public boolean hasSubsequence(T... searchElements) {
-		List<T> search = List.of(searchElements);
-		if (search.size() > elements.size()) {
+	public boolean hasSubsequence(Sequence<T> searchElements) {
+
+		if (searchElements.size() > elements.size()) {
 			return false;
 		}
 
-		int indexOfSubList = Collections.indexOfSubList(elements, search);
+		int indexOfSubList = Collections.indexOfSubList(elements, searchElements.elements);
 		return indexOfSubList != -1;
 	}
 
